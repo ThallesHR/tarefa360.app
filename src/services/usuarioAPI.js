@@ -1,5 +1,6 @@
 import { HTTPClient } from "./client";
 
+
 const UsuarioAPI = {
     async obterAsync(usuarioId) {
         try {
@@ -19,9 +20,10 @@ const UsuarioAPI = {
             throw error;
         }
     },
-    async criarAsync(nome, email, senha) {
+    async criarAsync(nome, email, senha,tipoUsuarioId) {
         try {
             const usuarioCriar = {
+                TipoUsuarioId:tipoUsuarioId,
                 Nome: nome,
                 Email: email,
                 Senha: senha
@@ -33,12 +35,13 @@ const UsuarioAPI = {
             throw error;
         }
     },
-    async atualizarAsync(id, nome, email) {
+    async atualizarAsync(id, nome, email,tipoUsuarioId) {
         try {
             const usuarioAtualizar = {
                 Id: id,
                 Nome: nome,
-                Email: email
+                Email: email,
+                TipoUsuarioId : tipoUsuarioId
             };
             const response = await HTTPClient.put(`/Usuario/Atualizar`, usuarioAtualizar);
             return response.data;
@@ -88,3 +91,5 @@ const UsuarioAPI = {
         }
     },
 }
+
+export default UsuarioAPI;
