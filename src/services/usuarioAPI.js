@@ -20,36 +20,47 @@ const UsuarioAPI = {
             throw error;
         }
     },
-    async criarAsync(nome, email, senha,tipoUsuarioId) {
+    async criarAsync(nome, email, senha, tipoUsuario) {
         try {
             const usuarioCriar = {
-                TipoUsuarioId:tipoUsuarioId,
                 Nome: nome,
                 Email: email,
-                Senha: senha
+                Senha: senha,
+                Tipo: Number(tipoUsuario)
             };
-            const response = await HTTPClient.post(`/Usuario/Criar`, usuarioCriar);
+
+            const response = await HTTPClient.post(
+                `/Usuario/Criar`,
+                usuarioCriar
+            );
+
             return response.data;
         } catch (error) {
-            console.error("Erro ao criar usuário: ", error);
+            console.error("Erro ao criar usuário:", error);
             throw error;
         }
     },
-    async atualizarAsync(id, nome, email,tipoUsuarioId) {
+    async atualizarAsync(id, nome, email, tipoUsuario) {
         try {
             const usuarioAtualizar = {
                 Id: id,
                 Nome: nome,
                 Email: email,
-                TipoUsuarioId : tipoUsuarioId
+                Tipo: Number(tipoUsuario)
             };
-            const response = await HTTPClient.put(`/Usuario/Atualizar`, usuarioAtualizar);
+
+            const response = await HTTPClient.put(
+                `/Usuario/Atualizar`,
+                usuarioAtualizar
+            );
+
             return response.data;
         } catch (error) {
-            console.error("Erro ao atualizar usuário : ", error);
+            console.error("Erro ao atualizar usuário: ", error);
             throw error;
         }
     },
+
     async deletarAsync(usuarioId) {
         try {
             const response = await HTTPClient.delete(`/Usuario/Deletar/${usuarioId}`);
@@ -69,7 +80,7 @@ const UsuarioAPI = {
         }
     },
     async alterarSenhaAsync(id, senha, senhaAntiga) {
-        try{
+        try {
             const usuarioAlterarSenha = {
                 Id: id,
                 Senha: senha,
@@ -77,15 +88,15 @@ const UsuarioAPI = {
             };
             const response = await HTTPClient.put(`/Usuario/AlterarSenha`, usuarioAlterarSenha);
             return response.data;
-        }catch(error){
+        } catch (error) {
             console.error("Erro ao alterar a senha do usuário: ", error);
             throw error;
         }
     },
-    async restaurarAsync(usuarioId){
-        try{
+    async restaurarAsync(usuarioId) {
+        try {
             const response = await HTTPClient.put(`/Usuario/Restaurar/${usuarioId}`);
-        }catch (error){
+        } catch (error) {
             console.error("Erro ao restaurar usuário:", error);
             throw error;
         }

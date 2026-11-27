@@ -41,7 +41,7 @@ export function EditarUsuario() {
         const buscarDadosUsuario = async () => {
             try {
                 const usuario = await UsuarioAPI.obterAsync(id);
-                setTipoUsuario(usuario.tipoUsuario)
+                setTipoUsuario(String(usuario.tipo))
                 setNome(usuario.nome)
                 setEmail(usuario.email)
             } catch (error) {
@@ -98,7 +98,9 @@ export function EditarUsuario() {
 
                                 <option value="">Selecione o tipo de usuário</option>
                                 {tipoUsuarios.map((tipo) => (
-                                    <option value={tipo.id}>{tipo.nome}</option>
+                                    <option key={tipo.id} value={String(tipo.id)}>
+                                        {tipo.nome}
+                                    </option>
                                 ))}
                             </Form.Control>
                         </Form.Group>
